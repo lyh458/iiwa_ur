@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<package>
+  <name>iiwa_ur_description</name>
+  <version>0.0.0</version>
+  <description>The iiwa_ur_description package</description>
+
+  <maintainer email="liyihui.ing@gmail.com">Yihui Li</maintainer>
+
+  <license>BSD</license>
+  
+  <build_depend>iiwa_description</build_depend>  
+  <run_depend>iiwa_description</run_depend>
+
+  <build_depend>ur_description</build_depend>  
+  <run_depend>ur_description</run_depend>
+  
+  <buildtool_depend>catkin</buildtool_depend>
+
+</package>
