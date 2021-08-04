@@ -51,34 +51,53 @@
     <disable_collisions link1="base_link" link2="iiwa_link_5" reason="Never" />
     <disable_collisions link1="base_link" link2="iiwa_link_6" reason="Never" />
     <disable_collisions link1="base_link" link2="iiwa_link_7" reason="Never" />
+    <disable_collisions link1="base_link" link2="iiwa_pedestal" reason="Never" />
     <disable_collisions link1="base_link" link2="shoulder_link" reason="Adjacent" />
+    <disable_collisions link1="base_link" link2="ur_pedestal" reason="Adjacent" />
     <disable_collisions link1="ee_link" link2="iiwa_link_0" reason="Never" />
     <disable_collisions link1="ee_link" link2="iiwa_link_1" reason="Never" />
     <disable_collisions link1="ee_link" link2="iiwa_link_2" reason="Never" />
     <disable_collisions link1="ee_link" link2="iiwa_link_3" reason="Never" />
+    <disable_collisions link1="ee_link" link2="iiwa_link_4" reason="Never" />
+    <disable_collisions link1="ee_link" link2="iiwa_link_5" reason="Never" />
+    <disable_collisions link1="ee_link" link2="iiwa_link_6" reason="Never" />
+    <disable_collisions link1="ee_link" link2="iiwa_link_7" reason="Never" />
+    <disable_collisions link1="ee_link" link2="iiwa_pedestal" reason="Never" />
     <disable_collisions link1="ee_link" link2="wrist_1_link" reason="Never" />
     <disable_collisions link1="ee_link" link2="wrist_2_link" reason="Never" />
     <disable_collisions link1="ee_link" link2="wrist_3_link" reason="Adjacent" />
     <disable_collisions link1="forearm_link" link2="iiwa_link_0" reason="Never" />
     <disable_collisions link1="forearm_link" link2="iiwa_link_1" reason="Never" />
     <disable_collisions link1="forearm_link" link2="iiwa_link_2" reason="Never" />
+    <disable_collisions link1="forearm_link" link2="iiwa_link_3" reason="Never" />
+    <disable_collisions link1="forearm_link" link2="iiwa_link_4" reason="Never" />
+    <disable_collisions link1="forearm_link" link2="iiwa_link_5" reason="Never" />
+    <disable_collisions link1="forearm_link" link2="iiwa_link_6" reason="Never" />
+    <disable_collisions link1="forearm_link" link2="iiwa_link_7" reason="Never" />
+    <disable_collisions link1="forearm_link" link2="iiwa_pedestal" reason="Never" />
     <disable_collisions link1="forearm_link" link2="upper_arm_link" reason="Adjacent" />
     <disable_collisions link1="forearm_link" link2="wrist_1_link" reason="Adjacent" />
     <disable_collisions link1="iiwa_link_0" link2="iiwa_link_1" reason="Adjacent" />
     <disable_collisions link1="iiwa_link_0" link2="iiwa_link_2" reason="Never" />
     <disable_collisions link1="iiwa_link_0" link2="iiwa_link_3" reason="Never" />
     <disable_collisions link1="iiwa_link_0" link2="iiwa_link_4" reason="Never" />
+    <disable_collisions link1="iiwa_link_0" link2="iiwa_pedestal" reason="Adjacent" />
     <disable_collisions link1="iiwa_link_0" link2="shoulder_link" reason="Never" />
     <disable_collisions link1="iiwa_link_0" link2="upper_arm_link" reason="Never" />
+    <disable_collisions link1="iiwa_link_0" link2="ur_pedestal" reason="Never" />
     <disable_collisions link1="iiwa_link_0" link2="wrist_1_link" reason="Never" />
+    <disable_collisions link1="iiwa_link_0" link2="wrist_2_link" reason="Never" />
+    <disable_collisions link1="iiwa_link_0" link2="wrist_3_link" reason="Never" />
     <disable_collisions link1="iiwa_link_1" link2="iiwa_link_2" reason="Adjacent" />
     <disable_collisions link1="iiwa_link_1" link2="iiwa_link_3" reason="Never" />
     <disable_collisions link1="iiwa_link_1" link2="iiwa_link_4" reason="Never" />
     <disable_collisions link1="iiwa_link_1" link2="iiwa_link_5" reason="Never" />
     <disable_collisions link1="iiwa_link_1" link2="iiwa_link_6" reason="Never" />
     <disable_collisions link1="iiwa_link_1" link2="iiwa_link_7" reason="Never" />
+    <disable_collisions link1="iiwa_link_1" link2="iiwa_pedestal" reason="Never" />
     <disable_collisions link1="iiwa_link_1" link2="shoulder_link" reason="Never" />
     <disable_collisions link1="iiwa_link_1" link2="upper_arm_link" reason="Never" />
+    <disable_collisions link1="iiwa_link_1" link2="ur_pedestal" reason="Never" />
     <disable_collisions link1="iiwa_link_1" link2="wrist_1_link" reason="Never" />
     <disable_collisions link1="iiwa_link_1" link2="wrist_2_link" reason="Never" />
     <disable_collisions link1="iiwa_link_1" link2="wrist_3_link" reason="Never" />
@@ -87,8 +106,10 @@
     <disable_collisions link1="iiwa_link_2" link2="iiwa_link_5" reason="Never" />
     <disable_collisions link1="iiwa_link_2" link2="iiwa_link_6" reason="Never" />
     <disable_collisions link1="iiwa_link_2" link2="iiwa_link_7" reason="Never" />
+    <disable_collisions link1="iiwa_link_2" link2="iiwa_pedestal" reason="Never" />
     <disable_collisions link1="iiwa_link_2" link2="shoulder_link" reason="Never" />
     <disable_collisions link1="iiwa_link_2" link2="upper_arm_link" reason="Never" />
+    <disable_collisions link1="iiwa_link_2" link2="ur_pedestal" reason="Never" />
     <disable_collisions link1="iiwa_link_2" link2="wrist_1_link" reason="Never" />
     <disable_collisions link1="iiwa_link_2" link2="wrist_2_link" reason="Never" />
     <disable_collisions link1="iiwa_link_2" link2="wrist_3_link" reason="Never" />
@@ -96,19 +117,52 @@
     <disable_collisions link1="iiwa_link_3" link2="iiwa_link_5" reason="Never" />
     <disable_collisions link1="iiwa_link_3" link2="iiwa_link_6" reason="Never" />
     <disable_collisions link1="iiwa_link_3" link2="iiwa_link_7" reason="Never" />
+    <disable_collisions link1="iiwa_link_3" link2="iiwa_pedestal" reason="Never" />
     <disable_collisions link1="iiwa_link_3" link2="shoulder_link" reason="Never" />
     <disable_collisions link1="iiwa_link_3" link2="upper_arm_link" reason="Never" />
+    <disable_collisions link1="iiwa_link_3" link2="ur_pedestal" reason="Never" />
+    <disable_collisions link1="iiwa_link_3" link2="wrist_1_link" reason="Never" />
+    <disable_collisions link1="iiwa_link_3" link2="wrist_2_link" reason="Never" />
+    <disable_collisions link1="iiwa_link_3" link2="wrist_3_link" reason="Never" />
     <disable_collisions link1="iiwa_link_4" link2="iiwa_link_5" reason="Adjacent" />
     <disable_collisions link1="iiwa_link_4" link2="iiwa_link_6" reason="Never" />
     <disable_collisions link1="iiwa_link_4" link2="iiwa_link_7" reason="Never" />
+    <disable_collisions link1="iiwa_link_4" link2="iiwa_pedestal" reason="Never" />
     <disable_collisions link1="iiwa_link_4" link2="shoulder_link" reason="Never" />
+    <disable_collisions link1="iiwa_link_4" link2="upper_arm_link" reason="Never" />
+    <disable_collisions link1="iiwa_link_4" link2="ur_pedestal" reason="Never" />
+    <disable_collisions link1="iiwa_link_4" link2="wrist_1_link" reason="Never" />
+    <disable_collisions link1="iiwa_link_4" link2="wrist_2_link" reason="Never" />
+    <disable_collisions link1="iiwa_link_4" link2="wrist_3_link" reason="Never" />
     <disable_collisions link1="iiwa_link_5" link2="iiwa_link_6" reason="Adjacent" />
     <disable_collisions link1="iiwa_link_5" link2="iiwa_link_7" reason="Never" />
     <disable_collisions link1="iiwa_link_5" link2="shoulder_link" reason="Never" />
+    <disable_collisions link1="iiwa_link_5" link2="upper_arm_link" reason="Never" />
+    <disable_collisions link1="iiwa_link_5" link2="ur_pedestal" reason="Never" />
+    <disable_collisions link1="iiwa_link_5" link2="wrist_1_link" reason="Never" />
+    <disable_collisions link1="iiwa_link_5" link2="wrist_2_link" reason="Never" />
+    <disable_collisions link1="iiwa_link_5" link2="wrist_3_link" reason="Never" />
     <disable_collisions link1="iiwa_link_6" link2="iiwa_link_7" reason="Adjacent" />
     <disable_collisions link1="iiwa_link_6" link2="shoulder_link" reason="Never" />
+    <disable_collisions link1="iiwa_link_6" link2="upper_arm_link" reason="Never" />
+    <disable_collisions link1="iiwa_link_6" link2="ur_pedestal" reason="Never" />
+    <disable_collisions link1="iiwa_link_6" link2="wrist_1_link" reason="Never" />
+    <disable_collisions link1="iiwa_link_6" link2="wrist_2_link" reason="Never" />
+    <disable_collisions link1="iiwa_link_6" link2="wrist_3_link" reason="Never" />
     <disable_collisions link1="iiwa_link_7" link2="shoulder_link" reason="Never" />
+    <disable_collisions link1="iiwa_link_7" link2="upper_arm_link" reason="Never" />
+    <disable_collisions link1="iiwa_link_7" link2="ur_pedestal" reason="Never" />
+    <disable_collisions link1="iiwa_link_7" link2="wrist_1_link" reason="Never" />
+    <disable_collisions link1="iiwa_link_7" link2="wrist_2_link" reason="Never" />
+    <disable_collisions link1="iiwa_link_7" link2="wrist_3_link" reason="Never" />
+    <disable_collisions link1="iiwa_pedestal" link2="shoulder_link" reason="Never" />
+    <disable_collisions link1="iiwa_pedestal" link2="upper_arm_link" reason="Never" />
+    <disable_collisions link1="iiwa_pedestal" link2="ur_pedestal" reason="Never" />
+    <disable_collisions link1="iiwa_pedestal" link2="wrist_1_link" reason="Never" />
+    <disable_collisions link1="iiwa_pedestal" link2="wrist_2_link" reason="Never" />
+    <disable_collisions link1="iiwa_pedestal" link2="wrist_3_link" reason="Never" />
     <disable_collisions link1="shoulder_link" link2="upper_arm_link" reason="Adjacent" />
+    <disable_collisions link1="shoulder_link" link2="ur_pedestal" reason="Never" />
     <disable_collisions link1="wrist_1_link" link2="wrist_2_link" reason="Adjacent" />
     <disable_collisions link1="wrist_1_link" link2="wrist_3_link" reason="Never" />
     <disable_collisions link1="wrist_2_link" link2="wrist_3_link" reason="Adjacent" />

@@ -8,4 +8,4 @@ moveit_setup_assistant_config:
   CONFIG:
     author_name: Yihui Li
     author_email: liyihui.ing@gmail.com
-    generated_timestamp: 1628046743
+    generated_timestamp: 1628065168
