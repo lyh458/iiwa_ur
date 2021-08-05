@@ -1,0 +1,79 @@
+<launch>
+
+    <!-- Usage: -->
+    <!-- iiwa_ur_bringup.launch ur_ip:=<value> ur_max_payload:=<value> -->
+
+    <arg name="robot_ns" default="dual_arm" doc="The unique iiwa and ur namespace."/>
+
+    <!-- | Parameters for iiwa | -->
+    <arg name="iiwa_ns" default="iiwa" doc="The unique iiwa namespace."/>
+    <arg name="hardware_interface" default="PositionJointInterface"/>
+    <!-- The is gonna have its nodes/topics under a namespace with the same name. -->
+    <arg name="iiwa_name" default="iiwa"/>
+    <!-- Model of the iiwa to use : iiwa7, iiwa14 -->
+    <arg name="iiwa_model" default="iiwa7"/>
+    <arg name="controllers" default="joint_state_controller $(arg hardware_interface)_trajectory_controller" />
+    <arg name="frequency" default="100" />
+    <arg name="joint_state_frequency" default="$(arg frequency)" />
+    <arg name="robot_state_frequency" default="$(arg frequency)" />
+
+    <!-- | Parameters for ur | -->
+    <arg name="ur_ns" default="ur" doc="The unique ur namespace."/>
+    <arg name="ur_ip" doc="IP of the ur controller" />
+    <arg name="reverse_ip" default="" doc="IP of the computer running the driver" />
+    <arg name="reverse_port" default="50001"/>
+    <arg name="min_payload"  default="0.0"/>
+    <arg name="ur_max_payload"  default="5.0"/>
+    <arg name="prefix" default="" />
+    <arg name="use_lowbandwidth_trajectory_follower" default="false"/>
+    <arg name="time_interval" default="0.008"/>
+    <arg name="servoj_time" default="0.008" />
+    <arg name="servoj_time_waiting" default="0.001" />
+    <arg name="max_waiting_time" default="2.0" />
+    <arg name="servoj_gain" default="100." />
+    <arg name="servoj_lookahead_time" default="1." />
+    <arg name="max_joint_difference" default="0.01" />
+    <arg name="base_frame" default="$(arg prefix)base" />
+    <arg name="tool_frame" default="$(arg prefix)tool0_controller" />
+    <arg name="shutdown_on_disconnect" default="true" />
+
+    <!-- Bringup iiwa driver -->
+    <!-- We need to integate the two `/joint_states` topics published by iiwa_hw (/$(arg iiwa_ns)/joint_states) and ur_driver (/joint_states),
+    if we don't remap a new name for `joint_states`, the node `joint_state_publisher` will publish and subscribe topic `/joint_states` simultaneously，
+    see ![rqt_graph](https://cdn.jsdelivr.net/gh/lyh458/ImageRepo@main/image/1627614796407-1627614796385.png), 
+    which may result in some issues, eg. the rate of `/joint_states` will be doubled  -->
+    <remap from="/$(arg iiwa_ns)/joint_states" to="/$(arg robot_ns)/iiwa_state/joint_states"/>
+    <include file="$(find iiwa_ur_bringup)/launch/iiwa_bringup.launch">
+        <arg name="hardware_interface" value="$(arg hardware_interface)" />
+        <arg name="robot_name" value="$(arg iiwa_name)" />
+        <arg name="model" value="$(arg iiwa_model)" />
+        <arg name="robot_ns" value="$(arg robot_ns)" />
+        <arg name="iiwa_ns" value="$(arg iiwa_ns)" />
+        <arg name="joint_state_frequency" value="$(arg joint_state_frequency)" />
+        <arg name="robot_state_frequency" value="$(arg robot_state_frequency)" />
+        <arg name="controllers" value="$(arg controllers)" />
+    </include>
+
+    <!-- Bringup ur driver -->
+    <remap from="/joint_states" to="/$(arg robot_ns)/ur_state/joint_states"/>
+    <include file="$(find iiwa_ur_bringup)/launch/ur_bringup.launch">
+        <arg name="robot_ip" value="$(arg ur_ip)"/>
+        <arg name="reverse_ip" value="$(arg reverse_ip)"/>
+        <arg name="reverse_port" value="$(arg reverse_port)"/>
+        <arg name="min_payload"  value="$(arg min_payload)"/>
+        <arg name="max_payload"  value="$(arg ur_max_payload)"/>
+        <arg name="prefix" default="" />
+        <arg name="use_lowbandwidth_trajectory_follower" value="$(arg use_lowbandwidth_trajectory_follower)"/>
+        <arg name="time_interval" value="$(arg time_interval)"/>
+        <arg name="servoj_time" value="$(arg servoj_time)" />
+        <arg name="servoj_time_waiting" default="$(arg servoj_time_waiting)" />
+        <arg name="max_waiting_time" value="$(arg max_waiting_time)" />
+        <arg name="servoj_gain" value="$(arg servoj_gain)" />
+        <arg name="servoj_lookahead_time" value="$(arg servoj_lookahead_time)" />
+        <arg name="max_joint_difference" value="$(arg max_joint_difference)" />
+        <arg name="base_frame" value="$(arg base_frame)" />
+        <arg name="tool_frame" value="$(arg tool_frame)" />
+        <arg name="shutdown_on_disconnect" value="$(arg shutdown_on_disconnect)"/>
+    </include>
+
+</launch>
