@@ -1,0 +1,45 @@
+<launch>
+  <!-- By default we do not overwrite the URDF. Change the following to true to change the default behavior -->
+  <arg name="load_robot_description" default="false"/>
+
+  <!-- The name of the parameter under which the URDF is loaded -->
+  <arg name="robot_description" default="robot_description"/>
+
+  <!-- | Parameters for iiwa | -->
+  <arg name="iiwa_model" default="iiwa7" />
+  <arg name="iiwa_name" default="iiwa" />
+  <arg name="hardware_interface" default="PositionJointInterface"/>
+
+  <!-- | Parameters for ur | -->
+  <arg name="ur_model" default="ur5" />
+  <arg name="limited" default="false" />
+  <arg name="transmission_hw_interface" default="hardware_interface/PositionJointInterface" />
+
+  <!-- Load universal robot description format (URDF) -->
+  <group if="$(arg load_robot_description)">
+    <include file="$(find iiwa_ur_description)/launch/iiwa_ur_upload.launch">
+      <arg name="iiwa_model" value="$(arg iiwa_model)" />
+      <!-- ``iiwa_name`` is fixed as ``iiwa`` to fixed [#269](https://github.com/IFL-CAMP/iiwa_stack/issues/269) -->
+      <arg name="iiwa_name" value="iiwa" />
+      <arg name="hardware_interface" value="$(arg hardware_interface)"/>
+      <arg name="ur_model" value="$(arg ur_model)" />
+      <arg name="limited" value="$(arg limited)" />
+      <arg name="transmission_hw_interface" value="$(arg transmission_hw_interface)" />
+    </include>
+  </group>
+
+  <!-- The semantic description that corresponds to the URDF -->
+  <param name="$(arg robot_description)_semantic" textfile="$(find iiwa_ur_moveit_config)/config/iiwa_ur.srdf" />
+
+  <!-- Load updated joint limits (override information from URDF) -->
+  <group ns="$(arg robot_description)_planning">
+    <rosparam command="load" file="$(find iiwa_ur_moveit_config)/config/joint_limits.yaml"/>
+  </group>
+
+  <!-- Load default settings for kinematics; these settings are overridden by settings in a node's namespace -->
+  <group ns="$(arg robot_description)_kinematics">
+    <rosparam command="load" file="$(find iiwa_ur_moveit_config)/config/kinematics.yaml"/>
+
+  </group>
+
+</launch>

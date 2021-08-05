@@ -1,6 +1,5 @@
 controller_list:
-  - name: fake_iiiwa_manipulator_controller
-    type: $(arg execution_type)
+  - name: fake_iiwa_manipulator_controller
     joints:
       - iiwa_joint_1
       - iiwa_joint_2
@@ -10,7 +9,6 @@ controller_list:
       - iiwa_joint_6
       - iiwa_joint_7
   - name: fake_ur_manipulator_controller
-    type: $(arg execution_type)
     joints:
       - shoulder_pan_joint
       - shoulder_lift_joint
@@ -19,15 +17,13 @@ controller_list:
       - wrist_2_joint
       - wrist_3_joint
   - name: fake_iiwa_endeffector_controller
-    type: $(arg execution_type)
     joints:
       []
   - name: fake_ur_endeffector_controller
-    type: $(arg execution_type)
     joints:
       []
 initial:  # Define initial robot poses.
-  - group: iiiwa_manipulator
+  - group: iiwa_manipulator
     pose: iiwa_up
   - group: ur_manipulator
     pose: ur_up

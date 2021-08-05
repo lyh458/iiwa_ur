@@ -1,9 +1,9 @@
 <package>
 
-  <name>iiwa_ur5_moveit_config</name>
+  <name>iiwa_ur_moveit_config</name>
   <version>0.3.0</version>
   <description>
-     An automatically generated package with all the configuration and launch files for using the iiwa_ur5 with the MoveIt! Motion Planning Framework
+     An automatically generated package with all the configuration and launch files for using the iiwa_ur with the MoveIt! Motion Planning Framework
   </description>
   <author email="liyihui.ing@gmail.com">Yihui Li</author>
   <maintainer email="liyihui.ing@gmail.com">Yihui Li</maintainer>

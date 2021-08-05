@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.1.3)
-project(iiwa_ur5_moveit_config)
+project(iiwa_ur_moveit_config)
 
 find_package(catkin REQUIRED)
 

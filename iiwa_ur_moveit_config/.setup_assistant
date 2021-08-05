@@ -4,7 +4,7 @@ moveit_setup_assistant_config:
     relative_path: urdf/iiwa7_ur5.urdf.xacro
     xacro_args: ""
   SRDF:
-    relative_path: config/iiwa_ur5.srdf
+    relative_path: config/iiwa_ur.srdf
   CONFIG:
     author_name: Yihui Li
     author_email: liyihui.ing@gmail.com
