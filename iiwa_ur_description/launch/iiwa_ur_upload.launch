@@ -1,19 +1,27 @@
 <?xml version="1.0"?>
 <launch>
-  
+
   <!-- This lauch file just loads the URDF with the given hardware interface and robot name into the ROS Parameter Server -->
 
   <!-- | Parameters for iiwa | -->
   <arg name="iiwa_name" default="iiwa"/>
   <arg name="iiwa_model" default="iiwa7" />
-  <arg name="hardware_interface" default="PositionJointInterface"/> 
+  <arg name="hardware_interface" default="PositionJointInterface"/>
+  <arg name="use_pedestal" default="true" doc="If true, load the urdf with pedestal" />
 
   <!-- | Parameters for ur | -->
   <arg name="ur_model" default="ur5" />
   <arg name="limited" default="false" doc="If true, limits joint range [-PI, PI] on all joints." />
   <arg name="transmission_hw_interface" default="hardware_interface/PositionJointInterface" />
 
-  <param unless="$(arg limited)" name="robot_description" command="$(find xacro)/xacro --inorder '$(find iiwa_ur_description)/urdf/$(arg iiwa_model)_$(arg ur_model).urdf.xacro' hardware_interface:=$(arg hardware_interface) transmission_hw_interface:=$(arg transmission_hw_interface) robot_name:=$(arg iiwa_name)" />
-  <param if="$(arg limited)" name="robot_description" command="$(find xacro)/xacro --inorder '$(find iiwa_ur_description)/urdf/$(arg iiwa_model)_$(arg ur_model).urdf.xacro' hardware_interface:=$(arg hardware_interface) transmission_hw_interface:=$(arg transmission_hw_interface) robot_name:=$(arg iiwa_name)" />
-  
+  <group if="$(arg use_pedestal)">
+    <param unless="$(arg limited)" name="robot_description" command="$(find xacro)/xacro --inorder '$(find iiwa_ur_description)/urdf/$(arg iiwa_model)_$(arg ur_model)_pedestal.urdf.xacro' hardware_interface:=$(arg hardware_interface) transmission_hw_interface:=$(arg transmission_hw_interface) robot_name:=$(arg iiwa_name)" />
+    <param if="$(arg limited)" name="robot_description" command="$(find xacro)/xacro --inorder '$(find iiwa_ur_description)/urdf/$(arg iiwa_model)_$(arg ur_model)_pedestal_joint_limited.urdf.xacro' hardware_interface:=$(arg hardware_interface) transmission_hw_interface:=$(arg transmission_hw_interface) robot_name:=$(arg iiwa_name)" />
+  </group>
+
+  <group unless="$(arg use_pedestal)">
+    <param unless="$(arg limited)" name="robot_description" command="$(find xacro)/xacro --inorder '$(find iiwa_ur_description)/urdf/$(arg iiwa_model)_$(arg ur_model).urdf.xacro' hardware_interface:=$(arg hardware_interface) transmission_hw_interface:=$(arg transmission_hw_interface) robot_name:=$(arg iiwa_name)" />
+    <param if="$(arg limited)" name="robot_description" command="$(find xacro)/xacro --inorder '$(find iiwa_ur_description)/urdf/$(arg iiwa_model)_$(arg ur_model)_joint_limited.urdf.xacro' hardware_interface:=$(arg hardware_interface) transmission_hw_interface:=$(arg transmission_hw_interface) robot_name:=$(arg iiwa_name)" />
+  </group>
+
 </launch>

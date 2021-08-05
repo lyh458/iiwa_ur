@@ -5,6 +5,8 @@
   <!-- The name of the parameter under which the URDF is loaded -->
   <arg name="robot_description" default="robot_description"/>
 
+  <arg name="use_pedestal" default="true" doc="If true, load the urdf with pedestal" />
+
   <!-- | Parameters for iiwa | -->
   <arg name="iiwa_model" default="iiwa7" />
   <arg name="iiwa_name" default="iiwa" />
@@ -25,11 +27,13 @@
       <arg name="ur_model" value="$(arg ur_model)" />
       <arg name="limited" value="$(arg limited)" />
       <arg name="transmission_hw_interface" value="$(arg transmission_hw_interface)" />
+      <arg name="use_pedestal" value="$(arg use_pedestal)"/>
     </include>
   </group>
 
   <!-- The semantic description that corresponds to the URDF -->
-  <param name="$(arg robot_description)_semantic" textfile="$(find iiwa_ur_moveit_config)/config/iiwa_ur.srdf" />
+  <param unless="$(arg use_pedestal)" name="$(arg robot_description)_semantic" textfile="$(find iiwa_ur_moveit_config)/config/iiwa_ur.srdf" />
+  <param if="$(arg use_pedestal)" name="$(arg robot_description)_semantic" textfile="$(find iiwa_ur_moveit_config)/config/iiwa_ur_pedestal.srdf" />
 
   <!-- Load updated joint limits (override information from URDF) -->
   <group ns="$(arg robot_description)_planning">

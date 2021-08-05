@@ -10,6 +10,7 @@
     <arg name="sim" default="false" doc="If true, the robot will be simulated in Gazebo" />
     <arg name="rviz" default="true"/>
     <arg name="source_list" default="[iiwa_state/joint_states, ur_state/joint_states]" doc="The joint_states source list for the joint_state_publisher."/>
+    <arg name="use_pedestal" default="true" doc="If true, load the urdf with pedestal" />
 
     <!-- | Parameters for iiwa | -->
     <!-- hardware_interface to use : PositionJointInterface, EffortJointInterface, VelocityJointInterface. -->
@@ -84,12 +85,13 @@
             <arg name="ur_model" value="$(arg ur_model)" />
             <arg name="limited" value="$(arg limited)" />
             <arg name="transmission_hw_interface" value="$(arg transmission_hw_interface)" />
+            <arg name="use_pedestal" value="$(arg use_pedestal)"/>
         </include>
 
         <include if="$(arg rviz)" file="$(find iiwa_ur_moveit_config)/launch/moveit_rviz.launch">
             <arg name="rviz_config" value="$(find iiwa_ur_moveit_config)/launch/moveit.rviz"/>
         </include>
-    
+
     </group>
 
 </launch>

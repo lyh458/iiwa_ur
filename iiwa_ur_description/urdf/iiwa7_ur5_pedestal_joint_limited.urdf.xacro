@@ -1,0 +1,138 @@
+<?xml version="1.0"?>
+<robot name="iiwa_ur"
+  xmlns:xacro="http://wiki.ros.org/xacro">
+
+  <!--grey-->
+  <material name="grey">
+    <color rgba="0.5 0.5 0.5 1.0"/>
+  </material>
+  <!--black-->
+  <material name="black">
+    <color rgba="0.0 0.0 0.0  1.0"/>
+  </material>
+
+  <!-- prefix of two arms -->
+  <xacro:property name="prefix_iiwa" value="$(arg robot_name)" />
+  <xacro:property name="prefix_ur" value="ur" />
+
+  <!--| iiwa |-->
+  <!-- Import Rviz colors -->
+  <xacro:include filename="$(find iiwa_description)/urdf/materials.xacro" />
+  <!--Import the lbr iiwa macro -->
+  <xacro:include filename="$(find iiwa_description)/urdf/iiwa7.xacro"/>
+  <xacro:arg name="hardware_interface" default="PositionJointInterface"/>
+  <xacro:arg name="robot_name" default="iiwa"/>
+
+  <!--| ur |-->
+  <!-- transmission -->
+  <xacro:arg name="transmission_hw_interface" default="hardware_interface/PositionJointInterface"/>
+  <!-- common stuff -->
+  <xacro:include filename="$(find ur_description)/urdf/common.gazebo.xacro" />
+  <!-- ur5 -->
+  <xacro:include filename="$(find ur_description)/urdf/ur5.urdf.xacro" />
+  <!-- ur5 -->
+  <xacro:ur5_robot prefix="" joint_limited="true"
+    shoulder_pan_lower_limit="${-pi}" shoulder_pan_upper_limit="${pi}"
+    shoulder_lift_lower_limit="${-pi}" shoulder_lift_upper_limit="${pi}"
+    elbow_joint_lower_limit="${-pi}" elbow_joint_upper_limit="${pi}"
+    wrist_1_lower_limit="${-pi}" wrist_1_upper_limit="${pi}"
+    wrist_2_lower_limit="${-pi}" wrist_2_upper_limit="${pi}"
+    wrist_3_lower_limit="${-pi}" wrist_3_upper_limit="${pi}"
+    transmission_hw_interface="$(arg transmission_hw_interface)"
+  />
+
+  <link name="world" />
+
+  <!-- world_iiwa_joint -->
+  <xacro:iiwa7 hardware_interface="$(arg hardware_interface)" robot_name="$(arg robot_name)" parent="world">
+    <origin xyz="0.0 0.0 0.7" rpy="0.0 0.0 0.0" />
+  </xacro:iiwa7>
+
+  <!-- world_ur_joint -->
+  <joint name="world_${prefix_ur}_joint" type="fixed">
+    <parent link="world" />
+    <child link="base_link" />
+    <origin xyz="1.2 0.0 0.7" rpy="0.0 0.0 ${PI}" />
+  </joint>
+
+  <!-- add iiwa pedestal -->
+  <link name="${prefix_iiwa}_pedestal">
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="package://iiwa_ur_description/meshes/pedestal.STL"/>
+      </geometry>
+      <material name="grey"/>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="package://iiwa_ur_description/meshes/pedestal.STL"/>
+      </geometry>
+    </collision>
+  </link>
+
+  <!-- add ur pedestal -->
+  <link name="${prefix_ur}_pedestal">
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="package://iiwa_ur_description/meshes/pedestal.STL"/>
+      </geometry>
+      <material name="grey"/>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="package://iiwa_ur_description/meshes/pedestal.STL"/>
+      </geometry>
+    </collision>
+  </link>
+  
+  <joint name="${prefix_iiwa}_pedestal_to_world" type="fixed">
+    <parent link="iiwa_link_0"/>
+    <child link="${prefix_iiwa}_pedestal"/>
+    <origin rpy="0 0 0.7854" xyz="0 0 0"/>
+  </joint>
+
+  <joint name="${prefix_ur}_pedestal_to_world" type="fixed">
+    <parent link="base_link"/>
+    <child link="${prefix_ur}_pedestal"/>
+    <origin rpy="0 0 0.7854" xyz="0 0 0"/>
+  </joint>
+
+  <!-- add optical table, not display well yet -->
+  <!-- world_iiwa_joint -->
+  <!--   <xacro:iiwa7 hardware_interface="$(arg hardware_interface)" robot_name="$(arg robot_name)" parent="world">
+    <origin xyz="0.0 0.0 0.858" rpy="0.0 0.0 0.0" />
+  </xacro:iiwa7> -->
+
+  <!-- world_ur_joint -->
+  <!--   <joint name="world_${prefix_ur}_joint" type="fixed">
+    <parent link="world" />
+    <child link="base_link" />
+    <origin xyz="1.0 0.0 0.858" rpy="0.0 0.0 ${PI}" />
+  </joint> -->
+  <!--   <link name="optical_table">
+    <visual>
+    <origin xyz="0.0 0.0 0" rpy="0.0 0.0 0.0" />
+      <geometry>
+        <mesh filename="package://iiwa_ur_description/meshes/optical_table.STL"/>
+      </geometry>
+      <material name="grey"/>
+    </visual>
+    <collision>
+    <origin xyz="0.0 0.0 0" rpy="0.0 0.0 0.0" />
+      <geometry>
+        <mesh filename="package://iiwa_ur_description/meshes/optical_table.STL"/>
+      </geometry>
+    </collision>
+  </link>
+
+  <joint name="iiwa_to_optical" type="fixed">
+    <parent link="iiwa_link_0"/>
+    <child link="optical_table"/>
+    <origin xyz="0.0 0.0 -0.788" rpy="${PI/2.0} 0 0.0" />
+  </joint> -->
+
+</robot>

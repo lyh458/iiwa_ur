@@ -24,6 +24,7 @@
   -->
   <arg name="use_gui" default="false" />
   <arg name="use_rviz" default="true" />
+  <arg name="use_pedestal" default="true" doc="If true, load the urdf with pedestal" />
 
   <!-- If needed, broadcast static tf for robot root -->
 
@@ -47,6 +48,7 @@
     <arg name="debug" value="$(arg debug)"/>
     <arg name="pipeline" value="$(arg pipeline)"/>
     <arg name="load_robot_description" value="$(arg load_robot_description)"/>
+    <arg name="use_pedestal" value="$(arg use_pedestal)"/>
   </include>
 
   <!-- Run Rviz and load the default config to see the state of the move_group node -->
