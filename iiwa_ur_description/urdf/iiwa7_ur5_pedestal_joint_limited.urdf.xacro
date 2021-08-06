@@ -19,9 +19,10 @@
   <!-- Import Rviz colors -->
   <xacro:include filename="$(find iiwa_description)/urdf/materials.xacro" />
   <!--Import the lbr iiwa macro -->
-  <xacro:include filename="$(find iiwa_description)/urdf/iiwa7.xacro"/>
+  <xacro:include filename="$(find iiwa_ur_description)/urdf/iiwa7.xacro"/>
   <xacro:arg name="hardware_interface" default="PositionJointInterface"/>
   <xacro:arg name="robot_name" default="iiwa"/>
+  <xacro:arg name="robot_namespace" default="iiwa"/>
 
   <!--| ur |-->
   <!-- transmission -->
@@ -44,7 +45,7 @@
   <link name="world" />
 
   <!-- world_iiwa_joint -->
-  <xacro:iiwa7 hardware_interface="$(arg hardware_interface)" robot_name="$(arg robot_name)" parent="world">
+  <xacro:iiwa7 hardware_interface="$(arg hardware_interface)" robot_name="$(arg robot_name)" robot_namespace="$(arg robot_namespace)" parent="world">
     <origin xyz="0.0 0.0 0.7" rpy="0.0 0.0 0.0" />
   </xacro:iiwa7>
 

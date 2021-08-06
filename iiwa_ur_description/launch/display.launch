@@ -1,5 +1,8 @@
 <launch>
 
+  <arg name="robot_ns" default="dual_arm" doc="The unique iiwa and ur namespace."/>
+  <arg name="use_pedestal" default="true" doc="If true, load the urdf with pedestal" />
+
   <!-- | Parameters for iiwa | -->
   <arg name="iiwa_model" default="iiwa7"/>
 
@@ -10,10 +13,14 @@
   <arg name="use_rviz" default="true" doc="Choose whether or not to use rviz."/>
   <arg name="use_gui" default="true" doc="Choose whether or not to use gui."/>
 
-  <include file="$(find iiwa_ur_description)/launch/iiwa_ur_upload.launch" >
+  <include file="$(find iiwa_ur_description)/launch/iiwa_ur_upload.launch">
+    <arg name="robot_ns" value="$(arg robot_ns)" />
     <arg name="iiwa_model" value="$(arg iiwa_model)" />
+    <!-- ``iiwa_name`` is fixed as ``iiwa`` to fixed [#269](https://github.com/IFL-CAMP/iiwa_stack/issues/269) -->
+    <arg name="iiwa_name" value="iiwa" />
     <arg name="ur_model" value="$(arg ur_model)" />
     <arg name="limited" value="$(arg limited)" />
+    <arg name="use_pedestal" value="$(arg use_pedestal)"/>
   </include>
 
   <!-- bring up robot description, joint and robot state publishers (also can start rviz) -->
