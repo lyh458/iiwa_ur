@@ -23,8 +23,9 @@
   <!--| ur |-->
   <!-- transmission -->
   <xacro:arg name="transmission_hw_interface" default="hardware_interface/PositionJointInterface"/>
+  <!-- plugin `gazebo_ros_control` has been include in iiwa_gazebo.xacro, so comment here -->
   <!-- common stuff -->
-  <xacro:include filename="$(find ur_description)/urdf/common.gazebo.xacro" />
+  <!-- <xacro:include filename="$(find ur_description)/urdf/common.gazebo.xacro" /> -->
   <!-- ur5 -->
   <xacro:include filename="$(find ur_description)/urdf/ur5.urdf.xacro" />
   <!-- ur5 -->
