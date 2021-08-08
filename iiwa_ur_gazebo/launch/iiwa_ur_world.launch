@@ -1,0 +1,52 @@
+<?xml version="1.0"?>
+<launch>
+
+  <!-- Loads thee iiwa.world environment in Gazebo. -->
+
+  <!-- These are the arguments you can pass this launch file, for example paused:=true -->
+  <arg name="paused" default="false"/>
+  <arg name="use_sim_time" default="true"/>
+  <arg name="gui" default="true"/>
+  <arg name="headless" default="false"/>
+  <arg name="debug" default="false"/>
+
+  <arg name="robot_ns" default="dual_arm" doc="The unique iiwa and ur namespace."/>
+  <arg name="use_pedestal" default="true" doc="If true, load the urdf with pedestal" />
+
+  <!-- | Parameters for iiwa | -->
+  <arg name="iiwa_model" default="iiwa7" />
+  <arg name="iiwa_name" default="iiwa" />
+  <arg name="hardware_interface" default="PositionJointInterface"/>
+
+  <!-- | Parameters for ur | -->
+  <arg name="ur_model" default="ur5" />
+  <arg name="limited" default="false" />
+  <arg name="transmission_hw_interface" default="hardware_interface/PositionJointInterface" />
+
+  <!-- We resume the logic in empty_world.launch, changing only the name of the world to be launched -->
+  <include file="$(find gazebo_ros)/launch/empty_world.launch">
+    <arg name="world_name" value="$(find iiwa_ur_gazebo)/worlds/iiwa_ur.world"/>
+    <arg name="debug" value="$(arg debug)" />
+    <arg name="gui" value="$(arg gui)" />
+    <arg name="paused" value="$(arg paused)"/>
+    <arg name="use_sim_time" value="$(arg use_sim_time)"/>
+    <arg name="headless" value="$(arg headless)"/>
+  </include>
+
+  <!-- ``iiwa_name`` is fixed as ``iiwa`` to fixed [#269](https://github.com/IFL-CAMP/iiwa_stack/issues/269) -->
+  <include file="$(find iiwa_ur_description)/launch/iiwa_ur_upload.launch">
+    <arg name="robot_ns" value="$(arg robot_ns)" />
+    <arg name="iiwa_model" value="$(arg iiwa_model)" />
+    <arg name="iiwa_name" value="iiwa" />
+    <arg name="hardware_interface" value="$(arg hardware_interface)"/>
+    <arg name="ur_model" value="$(arg ur_model)" />
+    <arg name="limited" value="$(arg limited)" />
+    <arg name="transmission_hw_interface" value="$(arg transmission_hw_interface)" />
+    <arg name="use_pedestal" value="$(arg use_pedestal)"/>
+  </include>
+
+  <!-- Run a python script to send a service call to gazebo_ros to spawn a URDF robot -->
+  <node name="urdf_spawner" pkg="gazebo_ros" type="spawn_model" respawn="false" output="screen" args="-urdf -param robot_description -model iiwa_ur -z 0.1"/>
+
+</launch>
+    

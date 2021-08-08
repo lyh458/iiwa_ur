@@ -11,10 +11,6 @@
     <color rgba="0.0 0.0 0.0  1.0"/>
   </material>
 
-  <!-- prefix of two arms -->
-  <xacro:property name="prefix_iiwa" value="$(arg robot_name)" />
-  <xacro:property name="prefix_ur" value="ur" />
-
   <!--| iiwa |-->
   <!-- Import Rviz colors -->
   <xacro:include filename="$(find iiwa_description)/urdf/materials.xacro" />
@@ -28,11 +24,15 @@
   <!-- transmission -->
   <xacro:arg name="transmission_hw_interface" default="hardware_interface/PositionJointInterface"/>
   <!-- common stuff -->
-  <xacro:include filename="$(find ur_description)/urdf/common.gazebo.xacro" />
+  <!-- <xacro:include filename="$(find ur_description)/urdf/common.gazebo.xacro" /> -->
   <!-- ur5 -->
   <xacro:include filename="$(find ur_description)/urdf/ur5.urdf.xacro" />
   <!-- ur5 -->
   <xacro:ur5_robot prefix="" joint_limited="false" transmission_hw_interface="$(arg transmission_hw_interface)" />
+
+  <!-- prefix of two arms -->
+  <xacro:property name="prefix_iiwa" value="$(arg robot_name)" />
+  <xacro:property name="prefix_ur" value="ur" />
 
   <link name="world" />
 
