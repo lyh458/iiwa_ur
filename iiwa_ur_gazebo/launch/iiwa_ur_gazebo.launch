@@ -12,12 +12,10 @@
     <!-- ===================================================================================== -->
 
     <arg name="robot_ns" default="dual_arm" doc="The unique iiwa and ur namespace."/>
-
     <arg name="use_pedestal" default="true" doc="If true, load the urdf with pedestal" />
-
     <arg name="trajectory" default="true"/>
-
     <arg name="load_robot_description" default="false" />
+    <arg name="frequency" default="100" doc="The frequency of the two state publishers."/>
 
     <!-- | Parameters for iiwa | -->
     <arg name="iiwa_model" default="iiwa7" />
@@ -63,6 +61,7 @@
                 <arg name="robot_ns" value="$(arg robot_ns)" />
                 <arg name="iiwa_ns" value="$(arg robot_ns)" />
                 <arg name="iiwa_model" value="$(arg iiwa_model)" />
+                <arg name="frequency" default="$(arg frequency)" />
             </include>
         </group>
 
@@ -75,6 +74,8 @@
                 <arg name="robot_ns" value="$(arg robot_ns)" />
                 <arg name="iiwa_ns" value="$(arg iiwa_ns)" />
                 <arg name="iiwa_model" value="$(arg iiwa_model)" />
+                <arg name="frequency" default="$(arg frequency)" />
+
             </include>
         </group>
     </group>
@@ -82,7 +83,7 @@
     <!-- Spawn controllers - it uses a JointTrajectoryController -->
     <group unless="$(arg load_robot_description)">
 
-        <group ns="$(arg robot_ns)" if="$(arg trajectory)">
+        <group if="$(arg trajectory)">
             <include file="$(find iiwa_ur_gazebo)/launch/iiwa_ur_gazebo_control.launch">
                 <arg name="hardware_interface" value="$(arg hardware_interface)" />
                 <arg name="controllers" value="joint_state_controller $(arg hardware_interface)_trajectory_controller ur_controller" />
@@ -94,7 +95,7 @@
         </group>
 
         <!-- Spawn controllers - it uses an Effort Controller for each joint -->
-        <group ns="$(arg robot_ns)" unless="$(arg trajectory)">
+        <group unless="$(arg trajectory)">
             <include file="$(find iiwa_ur_gazebo)/launch/iiwa_ur_gazebo_control.launch">
                 <arg name="hardware_interface" value="$(arg hardware_interface)" />
                 <arg name="controllers" value="joint_state_controller $(arg hardware_interface)_joint_group_controller" />

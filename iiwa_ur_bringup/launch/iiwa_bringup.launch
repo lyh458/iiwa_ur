@@ -1,11 +1,11 @@
 <launch>
     <arg name="iiwa_ns" default="iiwa" doc="The unique iiwa namespace."/>
-    <arg name="robot_ns" default="dual_arm" doc="The unique iiwa and qbhand namespace."/>
+    <arg name="robot_ns" default="dual_arm" doc="The unique iiwa and ur namespace."/>
 
     <!-- | Parameters for iiwa | -->
     <arg name="hardware_interface" default="PositionJointInterface"/>
     <!-- The is gonna have its nodes/topics under a namespace with the same name. -->
-    <arg name="robot_name" default="iiwa"/>
+    <arg name="iiwa_name" default="iiwa"/>
     <!-- Model of the iiwa to use : iiwa7, iiwa14 -->
     <arg name="model" default="iiwa7"/>
     <arg name="controllers" default="joint_state_controller $(arg hardware_interface)_trajectory_controller" />

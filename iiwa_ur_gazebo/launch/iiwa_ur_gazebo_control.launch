@@ -1,6 +1,7 @@
 <launch>
     <arg name="iiwa_ns" default="iiwa" doc="The unique iiwa namespace."/>
     <arg name="robot_ns" default="dual_arm" doc="The unique iiwa and ur namespace."/>
+    <arg name="frequency" default="100" doc="The frequency of the two state publishers."/>
 
     <!-- | Parameters for iiwa | -->
     <arg name="hardware_interface" default="PositionJointInterface"/>
@@ -9,15 +10,14 @@
     <!-- Model of the iiwa to use : iiwa7, iiwa14 -->
     <arg name="iiwa_model" default="iiwa7"/>
     <arg name="controllers" default="joint_state_controller $(arg hardware_interface)_trajectory_controller ur_controller" />
-    <arg name="joint_state_frequency" default="100" />
-    <arg name="robot_state_frequency" default="100" />
 
     <!-- We need to remove node `robot_state_publisher`, so can not include `iiwa_control.launch` directly -->
     <!-- Load iiwa controllers accordingly to parameters -->
     <!-- vvvvv content of `iiwa_control.launch`, but remove node `robot_state_publlisher` vvvvv -->
     <!-- Loads joint controller configurations from YAML file to parameter server -->
     <rosparam file="$(find iiwa_ur_gazebo)/config/iiwa_ur_controllers.yaml" command="load" />
-    <param name="/$(arg robot_ns)/joint_state_controller/publish_rate" value="$(arg joint_state_frequency)" />
+    <!-- set the `publish_rate` value of joint_state_controller -->
+    <param name="/$(arg robot_ns)/joint_state_controller/publish_rate" value="$(arg frequency)" />
     <!-- Loads the controllers -->
     <node name="controller_spawner" pkg="controller_manager" type="spawner" respawn="false" output="screen" args="$(arg controllers)" />
     <!-- ^^^^^ content of `iiwa_control.launch`, but remove node `robot_state_publlisher` ^^^^^ -->

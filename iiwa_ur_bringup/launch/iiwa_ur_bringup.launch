@@ -42,10 +42,10 @@
     if we don't remap a new name for `joint_states`, the node `joint_state_publisher` will publish and subscribe topic `/joint_states` simultaneously，
     see ![rqt_graph](https://cdn.jsdelivr.net/gh/lyh458/ImageRepo@main/image/1627614796407-1627614796385.png), 
     which may result in some issues, eg. the rate of `/joint_states` will be doubled  -->
-    <remap from="/$(arg iiwa_ns)/joint_states" to="/$(arg robot_ns)/iiwa_state/joint_states"/>
+    <remap from="/$(arg robot_ns)/joint_states" to="/$(arg robot_ns)/iiwa_state/joint_states"/>
     <include file="$(find iiwa_ur_bringup)/launch/iiwa_bringup.launch">
         <arg name="hardware_interface" value="$(arg hardware_interface)" />
-        <arg name="robot_name" value="$(arg iiwa_name)" />
+        <arg name="iiwa_name" value="$(arg iiwa_name)" />
         <arg name="model" value="$(arg iiwa_model)" />
         <arg name="robot_ns" value="$(arg robot_ns)" />
         <arg name="iiwa_ns" value="$(arg iiwa_ns)" />

@@ -2,7 +2,7 @@
     <!-- The planning and execution components of MoveIt! configured to run -->
     <!-- using the ROS-Industrial interface. -->
 
-    <arg name="robot_ns" default="dual_arm" doc="The unique iiwa and qbhand namespace."/>
+    <arg name="robot_ns" default="dual_arm" doc="The unique iiwa and ur namespace."/>
     <!-- Choose whether or not to use gui -->
     <arg name="use_gui" default="false" />
     <arg name="frequency" default="100" doc="The frequency of the two state publishers."/>
@@ -11,6 +11,8 @@
     <arg name="rviz" default="true"/>
     <arg name="source_list" default="[iiwa_state/joint_states, ur_state/joint_states]" doc="The joint_states source list for the joint_state_publisher."/>
     <arg name="use_pedestal" default="true" doc="If true, load the urdf with pedestal" />
+    <arg name="load_robot_description" default="false" doc="If true, load the robot_description, only work for gazebo simulation"/>
+
 
     <!-- | Parameters for iiwa | -->
     <!-- hardware_interface to use : PositionJointInterface, EffortJointInterface, VelocityJointInterface. -->
@@ -22,7 +24,7 @@
     <!-- The is gonna have its nodes/topics under a namespace with the same name. -->
 
     <!-- | Parameters for ur | -->
-    <arg name="ur_ip" doc="IP of the ur controller" />
+    <arg name="ur_ip" default="172.31.1.12" doc="IP of the ur controller" />
     <!-- Max payload of the ur to use : 3, 5, 10 -->
     <arg name="ur_max_payload" default="5.0"/>
     <arg name="ur_model" default="ur5"/>
@@ -37,11 +39,18 @@
     <!-- Run the robot within a Gazebo simulation. -->
     <group if="$(arg sim)">
         <!-- Load Gazebo with given values -->
-        <!-- <include file="$(find iiwa_gazebo)/launch/iiwa_gazebo.launch">
+        <include file="$(find iiwa_ur_gazebo)/launch/iiwa_ur_gazebo.launch">
+            <arg name="robot_ns" value="$(arg robot_ns)" />
             <arg name="hardware_interface" value="$(arg hardware_interface)"/>
             <arg name="iiwa_name" value="$(arg iiwa_name)"/>
-            <arg name="model" value="$(arg model)"/>
-        </include> -->
+            <arg name="iiwa_model" value="$(arg iiwa_model)"/>
+            <arg name="iiwa_ns" value="$(arg robot_ns)" />
+            <arg name="ur_model" value="$(arg ur_model)" />
+            <arg name="limited" value="$(arg limited)" />
+            <arg name="transmission_hw_interface" default="hardware_interface/PositionJointInterface" />
+            <arg name="frequency" value="$(arg frequency)" />
+            <arg name="load_robot_description" value="$(arg load_robot_description)" />
+        </include>
     </group>
 
     <!-- Bringup drivers. -->
@@ -51,15 +60,11 @@
             <arg name="iiwa_ns" value="$(arg iiwa_ns)"/>
             <arg name="hardware_interface" value="$(arg hardware_interface)"/>
             <arg name="iiwa_name" value="$(arg iiwa_name)"/>
-            <arg name="frequency" default="$(arg frequency)" />
+            <arg name="frequency" value="$(arg frequency)" />
             <arg name="iiwa_model" value="$(arg iiwa_model)"/>
             <arg name="ur_ip" value="$(arg ur_ip)" />
             <arg name="ur_max_payload" value="$(arg ur_max_payload)"/>
         </include>
-    </group>
-
-    <!-- Load move_group -->
-    <group ns="$(arg robot_ns)" unless="$(arg sim)">
 
         <node name="joint_state_publisher" pkg="joint_state_publisher" type="joint_state_publisher" unless="$(arg use_gui)">
             <rosparam param="source_list" subst_value="true">$(arg source_list)</rosparam>
@@ -70,6 +75,10 @@
             <rosparam param="source_list" subst_value="true">$(arg source_list)</rosparam>
             <param name="rate" value="$(arg frequency)"/>
         </node>
+    </group>
+
+    <!-- Load move_group -->
+    <group ns="$(arg robot_ns)">
 
         <!-- Given the published joint states, publish tf for the robot links -->
         <!-- This node has been call in `iiwa_control.launch`, so we rewrite a new `iiwa_bringup.launch` and remove `robot_state_publisher` -->
@@ -80,6 +89,7 @@
         <include file="$(find iiwa_ur_moveit_config)/launch/move_group.launch">
             <arg name="publish_monitored_planning_scene" value="true" />
             <arg name="hardware_interface" value="$(arg hardware_interface)"/>
+            <arg name="robot_ns" value="$(arg robot_ns)" />
             <arg name="iiwa_name" value="$(arg iiwa_name)"/>
             <arg name="iiwa_model" value="$(arg iiwa_model)"/>
             <arg name="ur_model" value="$(arg ur_model)" />

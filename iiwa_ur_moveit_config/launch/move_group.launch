@@ -36,6 +36,7 @@
                 " />
   -->
 
+  <arg name="robot_ns" default="dual_arm" doc="The unique iiwa and ur namespace."/>
   <arg name="use_pedestal" default="true" doc="If true, load the urdf with pedestal" />
 
   <!-- | Parameters for iiwa | -->
@@ -52,6 +53,7 @@
   <!-- load URDF, SRDF and joint_limits configuration -->
   <include file="$(find iiwa_ur_moveit_config)/launch/planning_context.launch">
     <arg name="load_robot_description" value="$(arg load_robot_description)" />
+    <arg name="robot_ns" value="$(arg robot_ns)" />
     <arg name="iiwa_model" value="$(arg iiwa_model)" />
     <arg name="iiwa_name" value="$(arg iiwa_name)" />
     <arg name="hardware_interface" value="$(arg hardware_interface)"/>
@@ -59,7 +61,6 @@
     <arg name="limited" value="$(arg limited)" />
     <arg name="transmission_hw_interface" value="$(arg transmission_hw_interface)" />
     <arg name="use_pedestal" value="$(arg use_pedestal)"/>
-
   </include>
 
   <!-- Planning Functionality -->
