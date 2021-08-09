@@ -1,7 +1,7 @@
 <!--
  * @Author: lyh458
  * @Date: 2021-08-09 16:52:34
- * @LastEditTime: 2021-08-09 17:30:42
+ * @LastEditTime: 2021-08-09 21:35:58
  * @LastEditors: lyh458
  * @Description: TO DO
  * @FilePath: /iiwa_ur/README.md
@@ -34,9 +34,13 @@ roslaunch iiwa_ur_moveit_config demo.launch
 
 - Real robot control:
 
-```xml
-roslaunch iiwa_ur_moveit_config moveit_planning_execution.launch sim:=false
-```
+    - please make sure that iiwa and ur are in the same subnet. eg. iiwa: `172.31.1.147`, ur: `172.31.1.12`.
+
+    - roslaunch the integrated launch file
+
+    ```xml
+    roslaunch iiwa_ur_moveit_config moveit_planning_execution.launch sim:=false ur_ip:=<your_ur_ip>
+    ```
 
 - Simulate in Gazebo:
 
@@ -44,10 +48,11 @@ roslaunch iiwa_ur_moveit_config moveit_planning_execution.launch sim:=false
 roslaunch iiwa_ur_moveit_config moveit_planning_execution.launch sim:=true
 ```
 
-**some options may be used**:
+**some other options may be used**:
 
 - `-limited`: if true, use the joint_limited version (joint limits restricted to [-pi,pi]) of UR, default `false`.
 - `-use_pedestal`： if true, use pedestal instead of simple robot, default `true`.
+- `-ur_max_payload`: maximum payload for ur, `5.0` for ur5, `3.0` for ur3, `10.0` for ur10, default `5.0`. Note: musted be set if you used ur3 or ur10 instead of ur5.
 
 More options info can be checked in launch files.
 
