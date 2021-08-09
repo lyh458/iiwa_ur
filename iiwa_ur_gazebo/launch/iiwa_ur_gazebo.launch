@@ -14,7 +14,7 @@
     <arg name="robot_ns" default="dual_arm" doc="The unique iiwa and ur namespace."/>
     <arg name="use_pedestal" default="true" doc="If true, load the urdf with pedestal" />
     <arg name="trajectory" default="true"/>
-    <arg name="load_robot_description" default="false" />
+    <arg name="load_robot_description" default="true" />
     <arg name="frequency" default="100" doc="The frequency of the two state publishers."/>
 
     <!-- | Parameters for iiwa | -->
@@ -40,7 +40,7 @@
     </include>
 
     <!-- add this option so that iiwa_ur_gazebo can be launch indipendently -->
-    <group if="$(arg load_robot_description)">
+    <group ns="$(arg robot_ns)" if="$(arg load_robot_description)">
         <include file="$(find iiwa_ur_description)/launch/iiwa_ur_upload.launch">
             <arg name="robot_ns" value="$(arg robot_ns)" />
             <arg name="iiwa_model" value="$(arg iiwa_model)" />
@@ -81,7 +81,7 @@
     </group>
 
     <!-- Spawn controllers - it uses a JointTrajectoryController -->
-    <group unless="$(arg load_robot_description)">
+    <group ns="$(arg robot_ns)" unless="$(arg load_robot_description)">
 
         <group if="$(arg trajectory)">
             <include file="$(find iiwa_ur_gazebo)/launch/iiwa_ur_gazebo_control.launch">

@@ -165,127 +165,30 @@ ur_controller:
   stop_trajectory_duration: 0.5
   state_publish_rate:  25
   action_monitor_rate: 10
-  gazebo_ros_control:
-    pid_gains:
-      shoulder_pan_joint:
-        p:100.0
-        i:0.01
-        d:10.0
-      shoulder_lift_joint:
-        p:100.0
-        i:0.01
-        d:10.0
-      elbow_joint:
-        p:100.0
-        i:0.01
-        d:10.0
-      wrist_1_joint:
-        p:100.0
-        i:0.01
-        d:10.0
-      wrist_2_joint:
-        p:100.0
-        i:0.01
-        d:10.0
-      wrist_3_joint:
-        p:100.0
-        i:0.01
-        d:10.0
-
-
-# # Controllers for singular joint ------------------------------------
-# # 
-# # Effort Position Controllers ---------------------------------------
-# ## VALUES ARE NOT CORRECT !
-# EffortJointInterface_J1_controller:
-#   type: effort_controllers/JointPositionController
-#   joint: iiwa_joint_1
-#   pid: {p: 800.0, i: 100, d: 80.0, i_clamp_min: -10000, i_clamp_max: 10000}
-
-# EffortJointInterface_J2_controller:
-#   type: effort_controllers/JointPositionController
-#   joint: iiwa_joint_2
-#   pid: {p: 800.0, i: 1000, d: 100.0, i_clamp_min: -10000, i_clamp_max: 10000}
-
-# EffortJointInterface_J3_controller:
-#   type: effort_controllers/JointPositionController
-#   joint: iiwa_joint_3
-#   pid: {p: 800.0, i: 10, d: 5.0, i_clamp_min: -10000, i_clamp_max: 10000}
-
-# EffortJointInterface_J4_controller:
-#   type: effort_controllers/JointPositionController
-#   joint: iiwa_joint_4
-#   pid: {p: 800.0, i: 10, d: 80.0, i_clamp_min: -10000, i_clamp_max: 10000}
-
-# EffortJointInterface_J5_controller:
-#   type: effort_controllers/JointPositionController
-#   joint: iiwa_joint_5
-#   pid: {p: 300.0, i: 5, d: 10.0, i_clamp_min: -10000, i_clamp_max: 10000}
-
-# EffortJointInterface_J6_controller:
-#   type: effort_controllers/JointPositionController
-#   joint: iiwa_joint_6
-#   pid: {p: 50.0, i: 1, d: 1.0, i_clamp_min: -10000, i_clamp_max: 10000}
-
-# EffortJointInterface_J7_controller:
-#   type: effort_controllers/JointPositionController
-#   joint: iiwa_joint_7
-#   pid: {p: 10.0, i: 0.1, d: 1.0, i_clamp_min: -10000, i_clamp_max: 10000}
-
-#   # Forward Position Controllers ---------------------------------------
-# PositionJointInterface_J1_controller:
-#   type: position_controllers/JointPositionController
-#   joint: iiwa_joint_1
-
-# PositionJointInterface_J2_controller:
-#   type: position_controllers/JointPositionController
-#   joint: iiwa_joint_2
+  # gazebo_ros_control:
+  #   pid_gains:
+  #     shoulder_pan_joint:
+  #       p:100.0
+  #       i:0.01
+  #       d:10.0
+  #     shoulder_lift_joint:
+  #       p:100.0
+  #       i:0.01
+  #       d:10.0
+  #     elbow_joint:
+  #       p:100.0
+  #       i:0.01
+  #       d:10.0
+  #     wrist_1_joint:
+  #       p:100.0
+  #       i:0.01
+  #       d:10.0
+  #     wrist_2_joint:
+  #       p:100.0
+  #       i:0.01
+  #       d:10.0
+  #     wrist_3_joint:
+  #       p:100.0
+  #       i:0.01
+  #       d:10.0
   
-# PositionJointInterface_J3_controller:
-#   type: position_controllers/JointPositionController
-#   joint: iiwa_joint_3
-  
-# PositionJointInterface_J4_controller:
-#   type: position_controllers/JointPositionController
-#   joint: iiwa_joint_4
-  
-# PositionJointInterface_J5_controller:
-#   type: position_controllers/JointPositionController
-#   joint: iiwa_joint_5
-  
-# PositionJointInterface_J6_controller:
-#   type: position_controllers/JointPositionController
-#   joint: iiwa_joint_6
-  
-# PositionJointInterface_J7_controller:
-#   type: position_controllers/JointPositionController
-#   joint: iiwa_joint_7
-  
-#   # Forward Velocity Controllers ---------------------------------------
-# VelocityJointInterface_J1_controller:
-#   type: velocity_controllers/JointVelocityController
-#   joint: iiwa_joint_1
-  
-# VelocityJointInterface_J2_controller:
-#   type: velocity_controllers/JointVelocityController
-#   joint: iiwa_joint_2
-  
-# VelocityJointInterface_J3_controller:
-#   type: velocity_controllers/JointVelocityController
-#   joint: iiwa_joint_3
-  
-# VelocityJointInterface_J4_controller:
-#   type: velocity_controllers/JointVelocityController
-#   joint: iiwa_joint_4
-  
-# VelocityJointInterface_J5_controller:
-#   type: velocity_controllers/JointVelocityController
-#   joint: iiwa_joint_5
-  
-# VelocityJointInterface_J6_controller:
-#   type: velocity_controllers/JointVelocityController
-#   joint: iiwa_joint_6
-  
-# VelocityJointInterface_J7_controller:
-#   type: velocity_controllers/JointVelocityController
-#   joint: iiwa_joint_7
