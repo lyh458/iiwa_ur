@@ -1,7 +1,7 @@
 <!--
  * @Author: lyh458
  * @Date: 2021-08-09 16:52:34
- * @LastEditTime: 2021-08-09 21:35:58
+ * @LastEditTime: 2021-08-10 13:00:00
  * @LastEditors: lyh458
  * @Description: TO DO
  * @FilePath: /iiwa_ur/README.md
@@ -22,31 +22,39 @@
 - [universal_robot](https://github.com/ros-industrial/universal_robot): ROS-Industrial Universal Robots support.
 - [ur_modern_driver](https://github.com/ros-industrial/ur_modern_driver): ROS 1 driver for CB1 and CB2 controllers with UR5 or UR10 robots from Universal Robots.
 
-**Note**: I am used a UR5 with CB2, so I have to use this driver, but if you use a UR with >= CB3, you can't used these packages directly without some modifications for the new driver [ur_robot_driver](https://github.com/UniversalRobots/Universal_Robots_ROS_Driver) and [fmauch/universal_robot](https://github.com/fmauch/universal_robot).
+**Note**: I am using a UR5 with CB2, so I have to use this driver, but if you use a UR with >= CB3, you can't use these packages directly without some modifications for the new driver [ur_robot_driver](https://github.com/UniversalRobots/Universal_Robots_ROS_Driver) and [fmauch/universal_robot](https://github.com/fmauch/universal_robot).
 
 ## Usages
 
 - Only visualize in RVIZ:
 
-```xml
-roslaunch iiwa_ur_moveit_config demo.launch
-```
+    ```xml
+    roslaunch iiwa_ur_moveit_config demo.launch
+    ```
 
 - Real robot control:
 
-    - please make sure that iiwa and ur are in the same subnet. eg. iiwa: `172.31.1.147`, ur: `172.31.1.12`.
+  - please make sure that iiwa and ur are in the same subnet. eg. iiwa: `172.31.1.147`, ur: `172.31.1.12`.
 
-    - roslaunch the integrated launch file
+  - roslaunch the integrated launch file
 
     ```xml
     roslaunch iiwa_ur_moveit_config moveit_planning_execution.launch sim:=false ur_ip:=<your_ur_ip>
     ```
 
+The rqt_graph:
+
+![rqt_graph_real](https://cdn.jsdelivr.net/gh/lyh458/ImageRepo@main/image/1628151814122-1628151814114-iiwa_ur_moveit_real_control_rqt_graph.png)
+
 - Simulate in Gazebo:
 
-```xml
-roslaunch iiwa_ur_moveit_config moveit_planning_execution.launch sim:=true
-```
+    ```xml
+    roslaunch iiwa_ur_moveit_config moveit_planning_execution.launch sim:=true
+    ```
+
+The rqt_graph:
+
+![rqt_graph_sim](https://cdn.jsdelivr.net/gh/lyh458/ImageRepo@main/image/1628571587395-1628571587387-iiwa_ur_gazebo.png)
 
 **some other options may be used**:
 
