@@ -11,7 +11,6 @@
     <!-- |    controllers for the single joints, using the "trajectory" argument.            | -->
     <!-- ===================================================================================== -->
 
-    <arg name="robot_ns" default="dual_arm" doc="The unique iiwa and ur namespace."/>
     <arg name="use_pedestal" default="true" doc="If true, load the urdf with pedestal" />
     <arg name="trajectory" default="true"/>
     <arg name="load_robot_description" default="true" />
@@ -40,9 +39,9 @@
     </include>
 
     <!-- add this option so that iiwa_ur_gazebo can be launch indipendently -->
-    <group ns="$(arg robot_ns)" if="$(arg load_robot_description)">
+    <group if="$(arg load_robot_description)">
         <include file="$(find iiwa_ur_description)/launch/iiwa_ur_upload.launch">
-            <arg name="robot_ns" value="$(arg robot_ns)" />
+            <arg name="iiwa_ns" value="$(arg iiwa_ns)" />
             <arg name="iiwa_model" value="$(arg iiwa_model)" />
             <!-- ``iiwa_name`` is fixed as ``iiwa`` to fixed [#269](https://github.com/IFL-CAMP/iiwa_stack/issues/269) -->
             <arg name="iiwa_name" value="iiwa" />
@@ -58,8 +57,6 @@
                 <arg name="hardware_interface" value="$(arg hardware_interface)" />
                 <arg name="controllers" value="joint_state_controller $(arg hardware_interface)_trajectory_controller ur_controller" />
                 <arg name="iiwa_name" value="$(arg iiwa_name)" />
-                <arg name="robot_ns" value="$(arg robot_ns)" />
-                <arg name="iiwa_ns" value="$(arg robot_ns)" />
                 <arg name="iiwa_model" value="$(arg iiwa_model)" />
                 <arg name="frequency" default="$(arg frequency)" />
             </include>
@@ -71,8 +68,6 @@
                 <arg name="hardware_interface" value="$(arg hardware_interface)" />
                 <arg name="controllers" value="joint_state_controller $(arg hardware_interface)_joint_group_controller" />
                 <arg name="iiwa_name" value="$(arg iiwa_name)" />
-                <arg name="robot_ns" value="$(arg robot_ns)" />
-                <arg name="iiwa_ns" value="$(arg iiwa_ns)" />
                 <arg name="iiwa_model" value="$(arg iiwa_model)" />
                 <arg name="frequency" default="$(arg frequency)" />
 
@@ -81,15 +76,13 @@
     </group>
 
     <!-- Spawn controllers - it uses a JointTrajectoryController -->
-    <group ns="$(arg robot_ns)" unless="$(arg load_robot_description)">
+    <group unless="$(arg load_robot_description)">
 
         <group if="$(arg trajectory)">
             <include file="$(find iiwa_ur_gazebo)/launch/iiwa_ur_gazebo_control.launch">
                 <arg name="hardware_interface" value="$(arg hardware_interface)" />
                 <arg name="controllers" value="joint_state_controller $(arg hardware_interface)_trajectory_controller ur_controller" />
                 <arg name="iiwa_name" value="$(arg iiwa_name)" />
-                <arg name="robot_ns" value="$(arg robot_ns)" />
-                <arg name="iiwa_ns" value="$(arg robot_ns)" />
                 <arg name="iiwa_model" value="$(arg iiwa_model)" />
             </include>
         </group>
@@ -100,8 +93,6 @@
                 <arg name="hardware_interface" value="$(arg hardware_interface)" />
                 <arg name="controllers" value="joint_state_controller $(arg hardware_interface)_joint_group_controller" />
                 <arg name="iiwa_name" value="$(arg iiwa_name)" />
-                <arg name="robot_ns" value="$(arg robot_ns)" />
-                <arg name="iiwa_ns" value="$(arg iiwa_ns)" />
                 <arg name="iiwa_model" value="$(arg iiwa_model)" />
             </include>
         </group>

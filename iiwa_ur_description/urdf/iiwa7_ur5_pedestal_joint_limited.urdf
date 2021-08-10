@@ -611,7 +611,7 @@
   <!-- Load Gazebo lib and set the robot namespace -->
   <gazebo>
     <plugin filename="libgazebo_ros_control.so" name="gazebo_ros_control">
-      <robotNamespace>/iiwa</robotNamespace>
+      <robotNamespace>/</robotNamespace>
     </plugin>
   </gazebo>
   <!-- Link0 -->
@@ -663,7 +663,7 @@
     <mu2>0.2</mu2>
   </gazebo>
   <transmission name="iiwa_tran_1">
-    <robotNamespace>/iiwa</robotNamespace>
+    <robotNamespace>/</robotNamespace>
     <type>transmission_interface/SimpleTransmission</type>
     <joint name="iiwa_joint_1">
       <hardwareInterface>hardware_interface/PositionJointInterface</hardwareInterface>
@@ -674,7 +674,7 @@
     </actuator>
   </transmission>
   <transmission name="iiwa_tran_2">
-    <robotNamespace>/iiwa</robotNamespace>
+    <robotNamespace>/</robotNamespace>
     <type>transmission_interface/SimpleTransmission</type>
     <joint name="iiwa_joint_2">
       <hardwareInterface>hardware_interface/PositionJointInterface</hardwareInterface>
@@ -685,7 +685,7 @@
     </actuator>
   </transmission>
   <transmission name="iiwa_tran_3">
-    <robotNamespace>/iiwa</robotNamespace>
+    <robotNamespace>/</robotNamespace>
     <type>transmission_interface/SimpleTransmission</type>
     <joint name="iiwa_joint_3">
       <hardwareInterface>hardware_interface/PositionJointInterface</hardwareInterface>
@@ -696,7 +696,7 @@
     </actuator>
   </transmission>
   <transmission name="iiwa_tran_4">
-    <robotNamespace>/iiwa</robotNamespace>
+    <robotNamespace>/</robotNamespace>
     <type>transmission_interface/SimpleTransmission</type>
     <joint name="iiwa_joint_4">
       <hardwareInterface>hardware_interface/PositionJointInterface</hardwareInterface>
@@ -707,7 +707,7 @@
     </actuator>
   </transmission>
   <transmission name="iiwa_tran_5">
-    <robotNamespace>/iiwa</robotNamespace>
+    <robotNamespace>/</robotNamespace>
     <type>transmission_interface/SimpleTransmission</type>
     <joint name="iiwa_joint_5">
       <hardwareInterface>hardware_interface/PositionJointInterface</hardwareInterface>
@@ -718,7 +718,7 @@
     </actuator>
   </transmission>
   <transmission name="iiwa_tran_6">
-    <robotNamespace>/iiwa</robotNamespace>
+    <robotNamespace>/</robotNamespace>
     <type>transmission_interface/SimpleTransmission</type>
     <joint name="iiwa_joint_6">
       <hardwareInterface>hardware_interface/PositionJointInterface</hardwareInterface>
@@ -729,7 +729,7 @@
     </actuator>
   </transmission>
   <transmission name="iiwa_tran_7">
-    <robotNamespace>/iiwa</robotNamespace>
+    <robotNamespace>/</robotNamespace>
     <type>transmission_interface/SimpleTransmission</type>
     <joint name="iiwa_joint_7">
       <hardwareInterface>hardware_interface/PositionJointInterface</hardwareInterface>

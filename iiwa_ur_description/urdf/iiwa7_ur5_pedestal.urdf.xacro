@@ -18,7 +18,7 @@
   <xacro:include filename="$(find iiwa_ur_description)/urdf/iiwa7.xacro"/>
   <xacro:arg name="hardware_interface" default="PositionJointInterface"/>
   <xacro:arg name="robot_name" default="iiwa"/>
-  <xacro:arg name="robot_namespace" default="iiwa"/>
+  <xacro:arg name="robot_namespace" default=""/>
 
   <!--| ur |-->
   <!-- transmission -->

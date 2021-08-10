@@ -43,7 +43,6 @@
             <arg name="hardware_interface" value="$(arg hardware_interface)"/>
             <arg name="iiwa_name" value="$(arg iiwa_name)"/>
             <arg name="iiwa_model" value="$(arg iiwa_model)"/>
-            <arg name="iiwa_ns" value="$(arg iiwa_ns)" />
             <arg name="ur_model" value="$(arg ur_model)" />
             <arg name="limited" value="$(arg limited)" />
             <arg name="transmission_hw_interface" default="hardware_interface/PositionJointInterface" />
