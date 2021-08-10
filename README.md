@@ -62,6 +62,10 @@ The rqt_graph:
 
 More options info can be checked in launch files.
 
+## Other Branchs
+
+This branch `master` holds iiwa and ur in two different namespace, if you prefect a unified namespace version, you can try this branch [all-in-one-namespace](https://github.com/lyh458/iiwa_ur/tree/all-in-one-namespace), whose almost all nodes and topics are included in a same namespace, `dual_arm` by default.
+
 ## References
 
 - [dual_ur](https://github.com/Liuyvjin/shixi_dual_ur)
