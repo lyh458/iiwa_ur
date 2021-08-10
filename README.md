@@ -1,12 +1,3 @@
-<!--
- * @Author: lyh458
- * @Date: 2021-08-09 16:52:34
- * @LastEditTime: 2021-08-10 12:54:33
- * @LastEditors: lyh458
- * @Description: TO DO
- * @FilePath: /iiwa_ur/README.md
--->
-
 # IIWA_UR Dual-Arm ROS Packages
 
 ![iiwa-ur-dual-arm](https://cdn.jsdelivr.net/gh/lyh458/ImageRepo@main/image/1628164009592-1628164009582.png)
@@ -24,13 +15,20 @@
 
 **Note**: I am using a UR5 with CB2, so I have to use this driver, but if you use a UR with >= CB3, you can't use these packages directly without some modifications for the new driver [ur_robot_driver](https://github.com/UniversalRobots/Universal_Robots_ROS_Driver) and [fmauch/universal_robot](https://github.com/fmauch/universal_robot).
 
+
+## Supported ROS Distribution
+
+ROS Melodic.
+
 ## Usages
+
+After installing all the dependencies, you can:
 
 - Only visualize in RVIZ:
 
-```xml
-roslaunch iiwa_ur_moveit_config demo.launch
-```
+  ```xml
+  roslaunch iiwa_ur_moveit_config demo.launch
+  ```
 
 - Real robot control:
 
@@ -48,9 +46,9 @@ The rqt_graph:
 
 - Simulate in Gazebo:
 
-```xml
-roslaunch iiwa_ur_moveit_config moveit_planning_execution.launch sim:=true
-```
+  ```xml
+  roslaunch iiwa_ur_moveit_config moveit_planning_execution.launch sim:=true
+  ```
 
 The rqt_graph:
 
