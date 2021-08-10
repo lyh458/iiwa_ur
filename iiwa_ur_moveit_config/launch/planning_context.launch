@@ -5,7 +5,7 @@
   <!-- The name of the parameter under which the URDF is loaded -->
   <arg name="robot_description" default="robot_description"/>
 
-  <arg name="robot_ns" default="dual_arm" doc="The unique iiwa and ur namespace."/>
+  <arg name="iiwa_ns" default="iiwa" doc="The unique iiwa namespace."/>
   <arg name="use_pedestal" default="true" doc="If true, load the urdf with pedestal" />
 
   <!-- | Parameters for iiwa | -->
@@ -21,7 +21,7 @@
   <!-- Load universal robot description format (URDF) -->
   <group if="$(arg load_robot_description)">
     <include file="$(find iiwa_ur_description)/launch/iiwa_ur_upload.launch">
-      <arg name="robot_ns" value="$(arg robot_ns)" />
+      <arg name="iiwa_ns" value="$(arg iiwa_ns)" />
       <arg name="iiwa_model" value="$(arg iiwa_model)" />
       <!-- ``iiwa_name`` is fixed as ``iiwa`` to fixed [#269](https://github.com/IFL-CAMP/iiwa_stack/issues/269) -->
       <arg name="iiwa_name" value="iiwa" />

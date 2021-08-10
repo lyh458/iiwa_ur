@@ -1,6 +1,5 @@
 <launch>
     <arg name="iiwa_ns" default="iiwa" doc="The unique iiwa namespace."/>
-    <arg name="robot_ns" default="dual_arm" doc="The unique iiwa and ur namespace."/>
     <arg name="frequency" default="100" doc="The frequency of the two state publishers."/>
 
     <!-- | Parameters for iiwa | -->
@@ -17,7 +16,7 @@
     <!-- Loads joint controller configurations from YAML file to parameter server -->
     <rosparam file="$(find iiwa_ur_gazebo)/config/iiwa_ur_controllers.yaml" command="load" />
     <!-- set the `publish_rate` value of joint_state_controller -->
-    <param name="/$(arg robot_ns)/joint_state_controller/publish_rate" value="$(arg frequency)" />
+    <param name="/$(arg iiwa_ns)/joint_state_controller/publish_rate" value="$(arg frequency)" />
     <!-- Loads the controllers -->
     <node name="controller_spawner" pkg="controller_manager" type="spawner" respawn="false" output="screen" args="$(arg controllers)" />
     <!-- ^^^^^ content of `iiwa_control.launch`, but remove node `robot_state_publlisher` ^^^^^ -->

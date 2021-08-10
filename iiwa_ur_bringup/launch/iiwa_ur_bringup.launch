@@ -3,8 +3,6 @@
     <!-- Usage: -->
     <!-- iiwa_ur_bringup.launch ur_ip:=<value> ur_max_payload:=<value> -->
 
-    <arg name="robot_ns" default="dual_arm" doc="The unique iiwa and ur namespace."/>
-
     <!-- | Parameters for iiwa | -->
     <arg name="iiwa_ns" default="iiwa" doc="The unique iiwa namespace."/>
     <arg name="hardware_interface" default="PositionJointInterface"/>
@@ -42,12 +40,11 @@
     if we don't remap a new name for `joint_states`, the node `joint_state_publisher` will publish and subscribe topic `/joint_states` simultaneously，
     see ![rqt_graph](https://cdn.jsdelivr.net/gh/lyh458/ImageRepo@main/image/1627614796407-1627614796385.png), 
     which may result in some issues, eg. the rate of `/joint_states` will be doubled  -->
-    <remap from="/$(arg robot_ns)/joint_states" to="/$(arg robot_ns)/iiwa_state/joint_states"/>
-    <include file="$(find iiwa_ur_bringup)/launch/iiwa_bringup.launch">
+    <remap from="/$(arg iiwa_ns)/joint_states" to="/$(arg iiwa_ns)/joint_states"/>
+    <include ns="$(arg iiwa_ns)" file="$(find iiwa_ur_bringup)/launch/iiwa_bringup.launch">
         <arg name="hardware_interface" value="$(arg hardware_interface)" />
         <arg name="iiwa_name" value="$(arg iiwa_name)" />
         <arg name="model" value="$(arg iiwa_model)" />
-        <arg name="robot_ns" value="$(arg robot_ns)" />
         <arg name="iiwa_ns" value="$(arg iiwa_ns)" />
         <arg name="joint_state_frequency" value="$(arg joint_state_frequency)" />
         <arg name="robot_state_frequency" value="$(arg robot_state_frequency)" />
@@ -55,8 +52,8 @@
     </include>
 
     <!-- Bringup ur driver -->
-    <remap from="/joint_states" to="/$(arg robot_ns)/ur_state/joint_states"/>
-    <include file="$(find iiwa_ur_bringup)/launch/ur_bringup.launch">
+    <remap from="/$(arg ur_ns)/joint_states" to="/$(arg ur_ns)/joint_states"/>
+    <include ns="$(arg ur_ns)" file="$(find iiwa_ur_bringup)/launch/ur_bringup.launch">
         <arg name="robot_ip" value="$(arg ur_ip)"/>
         <arg name="reverse_ip" value="$(arg reverse_ip)"/>
         <arg name="reverse_port" value="$(arg reverse_port)"/>

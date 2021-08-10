@@ -2,14 +2,12 @@
     <!-- The planning and execution components of MoveIt! configured to run -->
     <!-- using the ROS-Industrial interface. -->
 
-    <arg name="robot_ns" default="dual_arm" doc="The unique iiwa and ur namespace."/>
     <!-- Choose whether or not to use gui -->
     <arg name="use_gui" default="false" />
     <arg name="frequency" default="100" doc="The frequency of the two state publishers."/>
     <!-- the "sim" argument controls whether we connect to a Simulated or Real robot. -->
     <arg name="sim" default="false" doc="If true, the robot will be simulated in Gazebo" />
     <arg name="rviz" default="true"/>
-    <arg name="source_list" default="[iiwa_state/joint_states, ur_state/joint_states]" doc="The joint_states source list for the joint_state_publisher."/>
     <arg name="use_pedestal" default="true" doc="If true, load the urdf with pedestal" />
     <arg name="load_robot_description" default="false" doc="If true, load the robot_description, only work for gazebo simulation"/>
 
@@ -19,11 +17,12 @@
     <arg name="hardware_interface" default="PositionJointInterface"/>
     <!-- Model of the iiwa to use : iiwa7, iiwa14 -->
     <arg name="iiwa_model" default="iiwa7"/>
-    <arg name="iiwa_name" default="$(arg robot_ns)" doc="The name of iiwa."/>
-    <arg name="iiwa_ns" default="$(arg robot_ns)" doc="The unique iiwa namespace."/>
+    <arg name="iiwa_name" default="iiwa" doc="The name of iiwa."/>
+    <arg name="iiwa_ns" default="$(arg iiwa_name)" doc="The unique iiwa namespace."/>
     <!-- The is gonna have its nodes/topics under a namespace with the same name. -->
 
     <!-- | Parameters for ur | -->
+    <arg name="ur_ns" default="ur" doc="The unique ur namespace."/>
     <arg name="ur_ip" default="172.31.1.12" doc="IP of the ur controller" />
     <!-- Max payload of the ur to use : 3, 5, 10 -->
     <arg name="ur_max_payload" default="5.0"/>
@@ -31,20 +30,20 @@
     <arg name="limited" default="false"/>
     <arg name="transmission_hw_interface" default="hardware_interface/PositionJointInterface" />
 
-    <remap from="/$(arg hardware_interface)_trajectory_controller/follow_joint_trajectory" to="/$(arg robot_ns)/$(arg hardware_interface)_trajectory_controller/follow_joint_trajectory"/>
-    <remap from="/follow_joint_trajectory" to="/$(arg robot_ns)/ur_controller/follow_joint_trajectory"/>
-    <remap from="/robot_description" to="/$(arg robot_ns)/robot_description"/>
-    <remap from="/get_planning_scene" to="/$(arg robot_ns)/get_planning_scene"/>
+    <arg name="source_list" default="[$(arg iiwa_ns)/joint_states, $(arg ur_ns)/joint_states]" doc="The joint_states source list for the joint_state_publisher."/>
+
+    <remap from="/$(arg iiwa_ns)/$(arg hardware_interface)_trajectory_controller/follow_joint_trajectory" to="/$(arg hardware_interface)_trajectory_controller/follow_joint_trajectory"/>
+    <remap from="/$(arg ur_ns)/follow_joint_trajectory" to="/ur_controller/follow_joint_trajectory"/>
 
     <!-- Run the robot within a Gazebo simulation. -->
     <group if="$(arg sim)">
         <!-- Load Gazebo with given values -->
         <include file="$(find iiwa_ur_gazebo)/launch/iiwa_ur_gazebo.launch">
-            <arg name="robot_ns" value="$(arg robot_ns)" />
+            <arg name="iiwa_ns" value="$(arg iiwa_ns)" />
             <arg name="hardware_interface" value="$(arg hardware_interface)"/>
             <arg name="iiwa_name" value="$(arg iiwa_name)"/>
             <arg name="iiwa_model" value="$(arg iiwa_model)"/>
-            <arg name="iiwa_ns" value="$(arg robot_ns)" />
+            <arg name="iiwa_ns" value="$(arg iiwa_ns)" />
             <arg name="ur_model" value="$(arg ur_model)" />
             <arg name="limited" value="$(arg limited)" />
             <arg name="transmission_hw_interface" default="hardware_interface/PositionJointInterface" />
@@ -56,8 +55,8 @@
     <!-- Bringup drivers. -->
     <group unless="$(arg sim)">
         <include file="$(find iiwa_ur_bringup)/launch/iiwa_ur_bringup.launch">
-            <arg name="robot_ns" value="$(arg robot_ns)" />
             <arg name="iiwa_ns" value="$(arg iiwa_ns)"/>
+            <arg name="ur_ns" value="$(arg ur_ns)"/>
             <arg name="hardware_interface" value="$(arg hardware_interface)"/>
             <arg name="iiwa_name" value="$(arg iiwa_name)"/>
             <arg name="frequency" value="$(arg frequency)" />
@@ -78,30 +77,26 @@
     </group>
 
     <!-- Load move_group -->
-    <group ns="$(arg robot_ns)">
+    <!-- Given the published joint states, publish tf for the robot links -->
+    <!-- This node has been call in `iiwa_control.launch`, so we rewrite a new `iiwa_bringup.launch` and remove `robot_state_publisher` inside-->
+    <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher" respawn="true" output="screen">
+        <param name="publish_frequency" value="$(arg frequency)"/>
+    </node>
 
-        <!-- Given the published joint states, publish tf for the robot links -->
-        <!-- This node has been call in `iiwa_control.launch`, so we rewrite a new `iiwa_bringup.launch` and remove `robot_state_publisher` -->
-        <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher" respawn="true" output="screen">
-            <param name="publish_frequency" value="$(arg frequency)"/>
-        </node>
+    <include file="$(find iiwa_ur_moveit_config)/launch/move_group.launch">
+        <arg name="publish_monitored_planning_scene" value="true" />
+        <arg name="hardware_interface" value="$(arg hardware_interface)"/>
+        <arg name="iiwa_ns" value="$(arg iiwa_ns)" />
+        <arg name="iiwa_name" value="$(arg iiwa_name)"/>
+        <arg name="iiwa_model" value="$(arg iiwa_model)"/>
+        <arg name="ur_model" value="$(arg ur_model)" />
+        <arg name="limited" value="$(arg limited)" />
+        <arg name="transmission_hw_interface" value="$(arg transmission_hw_interface)" />
+        <arg name="use_pedestal" value="$(arg use_pedestal)"/>
+    </include>
 
-        <include file="$(find iiwa_ur_moveit_config)/launch/move_group.launch">
-            <arg name="publish_monitored_planning_scene" value="true" />
-            <arg name="hardware_interface" value="$(arg hardware_interface)"/>
-            <arg name="robot_ns" value="$(arg robot_ns)" />
-            <arg name="iiwa_name" value="$(arg iiwa_name)"/>
-            <arg name="iiwa_model" value="$(arg iiwa_model)"/>
-            <arg name="ur_model" value="$(arg ur_model)" />
-            <arg name="limited" value="$(arg limited)" />
-            <arg name="transmission_hw_interface" value="$(arg transmission_hw_interface)" />
-            <arg name="use_pedestal" value="$(arg use_pedestal)"/>
-        </include>
-
-        <include if="$(arg rviz)" file="$(find iiwa_ur_moveit_config)/launch/moveit_rviz.launch">
-            <arg name="rviz_config" value="$(find iiwa_ur_moveit_config)/launch/moveit.rviz"/>
-        </include>
-
-    </group>
+    <include if="$(arg rviz)" file="$(find iiwa_ur_moveit_config)/launch/moveit_rviz.launch">
+        <arg name="rviz_config" value="$(find iiwa_ur_moveit_config)/launch/moveit.rviz"/>
+    </include>
 
 </launch>

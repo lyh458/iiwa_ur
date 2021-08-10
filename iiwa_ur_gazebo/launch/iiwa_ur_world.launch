@@ -10,7 +10,6 @@
   <arg name="headless" default="false"/>
   <arg name="debug" default="false"/>
 
-  <arg name="robot_ns" default="dual_arm" doc="The unique iiwa and ur namespace."/>
   <arg name="use_pedestal" default="true" doc="If true, load the urdf with pedestal" />
 
   <!-- | Parameters for iiwa | -->
@@ -35,7 +34,6 @@
 
   <!-- ``iiwa_name`` is fixed as ``iiwa`` to fixed [#269](https://github.com/IFL-CAMP/iiwa_stack/issues/269) -->
   <include file="$(find iiwa_ur_description)/launch/iiwa_ur_upload.launch">
-    <arg name="robot_ns" value="$(arg robot_ns)" />
     <arg name="iiwa_model" value="$(arg iiwa_model)" />
     <arg name="iiwa_name" value="iiwa" />
     <arg name="hardware_interface" value="$(arg hardware_interface)"/>

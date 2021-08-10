@@ -1,9 +1,9 @@
 <launch>
 
-  <arg name="robot_ns" default="dual_arm" doc="The unique iiwa and ur namespace."/>
   <arg name="use_pedestal" default="true" doc="If true, load the urdf with pedestal" />
 
   <!-- | Parameters for iiwa | -->
+  <arg name="iiwa_ns" default="iiwa" doc="The unique iiwa namespace."/>
   <arg name="iiwa_model" default="iiwa7"/>
 
   <!-- | Parameters for ur | -->
@@ -14,7 +14,7 @@
   <arg name="use_gui" default="true" doc="Choose whether or not to use gui."/>
 
   <include file="$(find iiwa_ur_description)/launch/iiwa_ur_upload.launch">
-    <arg name="robot_ns" value="$(arg robot_ns)" />
+    <arg name="iiwa_ns" value="$(arg iiwa_ns)" />
     <arg name="iiwa_model" value="$(arg iiwa_model)" />
     <!-- ``iiwa_name`` is fixed as ``iiwa`` to fixed [#269](https://github.com/IFL-CAMP/iiwa_stack/issues/269) -->
     <arg name="iiwa_name" value="iiwa" />

@@ -1,8 +1,6 @@
 <launch>
-    <arg name="iiwa_ns" default="iiwa" doc="The unique iiwa namespace."/>
-    <arg name="robot_ns" default="dual_arm" doc="The unique iiwa and ur namespace."/>
-
     <!-- | Parameters for iiwa | -->
+    <arg name="iiwa_ns" default="iiwa" doc="The unique iiwa namespace."/>
     <arg name="hardware_interface" default="PositionJointInterface"/>
     <!-- The is gonna have its nodes/topics under a namespace with the same name. -->
     <arg name="iiwa_name" default="iiwa"/>
@@ -12,23 +10,19 @@
     <arg name="joint_state_frequency" default="100" />
     <arg name="robot_state_frequency" default="100" />
 
-    <group ns="$(arg iiwa_ns)">
+    <!-- We need to remove node `robot_state_publisher`, so can not include `iiwa_control.launch` directly -->
+    <!-- Load iiwa controllers accordingly to parameters -->
+    <!-- vvvvv content of `iiwa_control.launch`, but remove node `robot_state_publlisher` vvvvv -->
+    <!-- Loads joint controller configurations from YAML file to parameter server -->
+    <rosparam file="$(find iiwa_control)/config/iiwa_control.yaml" command="load" />
+    <param name="/$(arg iiwa_ns)/joint_state_controller/publish_rate" value="$(arg joint_state_frequency)" />
+    <!-- Loads the controllers -->
+    <node name="controller_spawner" pkg="controller_manager" type="spawner" respawn="false" output="screen" args="$(arg controllers)" />
+    <!-- ^^^^^ content of `iiwa_control.launch`, but remove node `robot_state_publlisher` ^^^^^ -->
 
-        <!-- We need to remove node `robot_state_publisher`, so can not include `iiwa_control.launch` directly -->
-        <!-- Load iiwa controllers accordingly to parameters -->
-        <!-- vvvvv content of `iiwa_control.launch`, but remove node `robot_state_publlisher` vvvvv -->
-        <!-- Loads joint controller configurations from YAML file to parameter server -->
-        <rosparam file="$(find iiwa_control)/config/iiwa_control.yaml" command="load" />
-        <param name="/$(arg iiwa_ns)/joint_state_controller/publish_rate" value="$(arg joint_state_frequency)" />
-        <!-- Loads the controllers -->
-        <node name="controller_spawner" pkg="controller_manager" type="spawner" respawn="false" output="screen" args="$(arg controllers)" />
-        <!-- ^^^^^ content of `iiwa_control.launch`, but remove node `robot_state_publlisher` ^^^^^ -->
-
-        <!-- Robot interface -->
-        <include file="$(find iiwa_hw)/launch/iiwa_hw.launch">
-            <arg name="hardware_interface" value="$(arg hardware_interface)" />
-        </include>
-
-    </group>
+    <!-- Robot interface -->
+    <include file="$(find iiwa_hw)/launch/iiwa_hw.launch">
+        <arg name="hardware_interface" value="$(arg hardware_interface)" />
+    </include>
 
 </launch>
