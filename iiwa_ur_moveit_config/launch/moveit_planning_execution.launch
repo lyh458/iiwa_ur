@@ -8,7 +8,7 @@
     <!-- the "sim" argument controls whether we connect to a Simulated or Real robot. -->
     <arg name="sim" default="false" doc="If true, the robot will be simulated in Gazebo" />
     <arg name="rviz" default="true"/>
-    <arg name="use_pedestal" default="true" doc="If true, load the urdf with pedestal" />
+    <arg name="use_pedestal" default="false" doc="If true, load the urdf with pedestal" />
     <arg name="load_robot_description" default="false" doc="If true, load the robot_description, only work for gazebo simulation"/>
 
 

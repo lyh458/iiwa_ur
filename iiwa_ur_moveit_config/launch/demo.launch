@@ -24,7 +24,7 @@
   -->
   <arg name="use_gui" default="false" />
   <arg name="use_rviz" default="true" />
-  <arg name="use_pedestal" default="true" doc="If true, load the urdf with pedestal" />
+  <arg name="use_pedestal" default="false" doc="If true, load the urdf with pedestal" />
 
   <!-- If needed, broadcast static tf for robot root -->
 
