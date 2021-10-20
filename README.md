@@ -9,6 +9,8 @@
 
 # IIWA_UR Dual-Arm ROS Packages
 
+**Note: this branch is deprecated.**
+
 ![iiwa-ur-dual-arm](https://cdn.jsdelivr.net/gh/lyh458/ImageRepo@main/image/1628164009592-1628164009582.png)
 
 - **iiwa_ur_description**: a URDF for a KUKA LBR IIWA robot and a universal robot (default: iiwa7 and ur5).
