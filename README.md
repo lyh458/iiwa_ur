@@ -15,10 +15,9 @@
 
 **Note**: I am using a UR5 with CB2, so I have to use this driver, but if you use a UR with >= CB3, you can't use these packages directly without some modifications for the new driver [ur_robot_driver](https://github.com/UniversalRobots/Universal_Robots_ROS_Driver) and [fmauch/universal_robot](https://github.com/fmauch/universal_robot).
 
-
 ## Supported ROS Distribution
 
-ROS Melodic.
+ROS Melodic and Noetic (tested).
 
 ## Usages
 
