@@ -27,7 +27,7 @@
     <!-- Max payload of the ur to use : 3, 5, 10 -->
     <arg name="ur_max_payload" default="5.0"/>
     <arg name="ur_model" default="ur5"/>
-    <arg name="limited" default="false"/>
+    <arg name="limited" default="true"/>
     <arg name="transmission_hw_interface" default="hardware_interface/PositionJointInterface" />
 
     <arg name="source_list" default="[$(arg iiwa_ns)/joint_states, $(arg ur_ns)/joint_states]" doc="The joint_states source list for the joint_state_publisher."/>
