@@ -1,0 +1,50 @@
+<?xml version="1.0"?>
+<robot name="iiwa_ur" 
+  xmlns:xacro="http://wiki.ros.org/xacro">
+
+  <!--grey-->
+  <material name="grey">
+    <color rgba="0.5 0.5 0.5 1.0"/>
+  </material>
+  <!--black-->
+  <material name="black">
+    <color rgba="0.0 0.0 0.0  1.0"/>
+  </material>
+
+  <!--| iiwa |-->
+  <!-- Import Rviz colors -->
+  <xacro:include filename="$(find iiwa_description)/urdf/materials.xacro" />
+  <!--Import the lbr iiwa macro -->
+  <xacro:include filename="$(find iiwa_ur_description)/urdf/iiwa14.xacro"/>
+  <xacro:arg name="hardware_interface" default="PositionJointInterface"/>
+  <xacro:arg name="robot_name" default="iiwa"/>
+  <xacro:arg name="robot_namespace" default=""/>
+
+  <!--| ur |-->
+  <!-- transmission -->
+  <xacro:arg name="transmission_hw_interface" default="hardware_interface/PositionJointInterface"/>
+  <!-- plugin `gazebo_ros_control` has been include in iiwa_gazebo.xacro, so comment here -->
+  <!-- common stuff -->
+  <!-- <xacro:include filename="$(find ur_description)/urdf/common.gazebo.xacro" /> -->
+  <!-- ur3 -->
+  <xacro:include filename="$(find ur_description)/urdf/ur3.urdf.xacro" />
+  <!-- ur3 -->
+  <xacro:ur3_robot prefix="" joint_limited="true" shoulder_pan_lower_limit="${-pi}" shoulder_pan_upper_limit="${pi}" shoulder_lift_lower_limit="${-pi}" shoulder_lift_upper_limit="${pi}" elbow_joint_lower_limit="${-pi}" elbow_joint_upper_limit="${pi}" wrist_1_lower_limit="${-pi}" wrist_1_upper_limit="${pi}" wrist_2_lower_limit="${-pi}" wrist_2_upper_limit="${pi}" wrist_3_lower_limit="${-pi}" wrist_3_upper_limit="${pi}" transmission_hw_interface="$(arg transmission_hw_interface)" />
+
+  <!-- prefix of two arms -->
+  <xacro:property name="prefix_iiwa" value="$(arg robot_name)" />
+  <xacro:property name="prefix_ur" value="ur" /><link name="world" />
+
+  <!-- world_iiwa_joint -->
+  <xacro:iiwa14 hardware_interface="$(arg hardware_interface)" robot_name="$(arg robot_name)" robot_namespace="$(arg robot_namespace)" parent="world">
+    <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0" />
+  </xacro:iiwa14>
+
+  <!-- world_ur_joint -->
+  <joint name="world_${prefix_ur}_joint" type="fixed">
+    <parent link="world" />
+    <child link="base_link" />
+    <origin xyz="1.2 0.0 0.0" rpy="0.0 0.0 ${PI}" />
+  </joint>
+
+</robot>
